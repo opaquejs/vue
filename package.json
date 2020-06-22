@@ -1,0 +1,33 @@
+{
+  "name": "@opaquejs/vue",
+  "version": "0.1.1",
+  "description": "",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "@types/socket.io-client": "^1.4.33",
+    "socket.io-client": "^2.3.0",
+    "socket.io-stream": "^0.9.1",
+    "typescript": "^3.9.3"
+  },
+  "devDependencies": {
+    "@opaquejs/opaque": "^0.2.3",
+    "@types/jest": "^25.2.3",
+    "jest": "^26.0.1",
+    "ts-jest": "^26.1.1",
+    "vue": "^2.6.11"
+  },
+  "peerDependencies": {
+    "@opaquejs/opaque": "^0.2.1",
+    "vue": "^2.6.11"
+  },
+  "scripts": {
+    "test": "jest --config jest.config.js",
+    "test-watch": "jest --config jest.config.js --watch",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC"
+}
