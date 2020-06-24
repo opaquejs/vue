@@ -9,17 +9,6 @@ export default <T extends Constructor<Model> & typeof Model>(base: T) => class V
 
     protected static $query = makeReactiveQuery(base.$query)
 
-    protected static _Vue: null | typeof VueInstance = null
-    static get Vue(): typeof VueInstance {
-        if(this._Vue == null) {
-            throw new Error('You need to install the Vue model in order to use it with Vue!')
-        }
-        return this._Vue
-    }
-    static set Vue(Vue: typeof VueInstance) {
-        this._Vue = Vue
-    }
-
     static install(Vue: typeof VueInstance) {
         this.Vue = Vue
         this.$query.install(Vue)

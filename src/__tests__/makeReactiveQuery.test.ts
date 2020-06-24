@@ -8,5 +8,6 @@ describe('Vue', () => {
         }
 
         expect(VueReactiveQuery.install).toBeInstanceOf(Function)
+        expect(() => new VueReactiveQuery([], () => true, () => {}, () => {})).toThrow()
     })
 })
