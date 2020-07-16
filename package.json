@@ -6,22 +6,18 @@
   "directories": {
     "lib": "lib"
   },
-  "dependencies": {
-    "@types/socket.io-client": "^1.4.33",
-    "socket.io-client": "^2.3.0",
-    "socket.io-stream": "^0.9.1",
-    "typescript": "^3.9.3"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "typescript": "^3.9.3",
     "@opaquejs/opaque": "^0.2.3",
     "@types/jest": "^25.2.3",
     "jest": "^26.0.1",
     "ts-jest": "^26.1.1",
-    "vue": "^2.6.11"
+    "vue": "^3.0.0-beta.24"
   },
   "peerDependencies": {
     "@opaquejs/opaque": "^0.2.1",
-    "vue": "^2.6.11"
+    "vue": "^3.0.0"
   },
   "scripts": {
     "test": "jest --config jest.config.js",

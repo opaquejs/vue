@@ -1,13 +1,28 @@
 import { makeReactiveQuery } from ".."
 import { MappedQuery } from "@opaquejs/opaque"
+import { watch } from "vue";
+import { sleep } from './makeReactive.test'
 
 describe('Vue', () => {
-    test('Can extend Model', () => {
+    test('Can extend Model', async () => {
         class VueReactiveQuery<A, B> extends makeReactiveQuery(MappedQuery)<A, B> {
 
         }
 
-        expect(VueReactiveQuery.install).toBeInstanceOf(Function)
-        expect(() => new VueReactiveQuery([], () => true, () => {}, () => {})).toThrow()
+        const data: { value: string }[] = [];
+        const query = new VueReactiveQuery(data, () => true, o => o, m => m)
+
+        const values: any[] = []
+        const stop = watch(query.get(), value => values.push(value.length))
+
+        data.push({ value: 'hallo' })
+        query.refresh()
+        await sleep(10)
+
+        data.push({ value: 'hallo again' })
+        query.refresh()
+        await sleep(10)
+
+        expect(values).toEqual([ 1, 2 ])
     })
 })

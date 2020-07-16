@@ -1,25 +1,16 @@
-import { Model } from '@opaquejs/opaque'
-import VueInstance from 'vue'
+import { Model, Attributes } from '@opaquejs/opaque'
 import { makeReactiveQuery } from '.'
-import hasVue from './hasVue'
+import { reactive, isReactive, toRefs, toRef } from 'vue'
 
 type Constructor<T = {}> = new (...args: any[]) => T
 
-export default <T extends Constructor<Model> & typeof Model>(base: T) => class VueReactiveModel extends hasVue(base) {
+export default <T extends Constructor<Model> & typeof Model>(base: T) => class VueReactiveModel extends base {
 
     protected static $query = makeReactiveQuery(base.$query)
 
-    static install(Vue: typeof VueInstance) {
-        this.Vue = Vue
-        this.$query.install(Vue)
-    }
-
-    setAttribute<T extends unknown>(attribute: string, value: T) {
-        return (this.constructor as typeof VueReactiveModel).Vue.set(this.$attributes.local, attribute, value)
-    }
-
     constructor(...args: any[]) {
         super(...args)
+        this.$attributes.local = reactive(this.$attributes.local)
     }
 
 }
