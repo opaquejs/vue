@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, shallowReactive } from 'vue'
 
 type Constructor<T = {}> = new (...args: any[]) => T
 
@@ -6,8 +6,8 @@ export default <T extends Constructor<{ results: any[], mapped: any[] }>>(base: 
 
     constructor(...args: any[]) {
         super(...args)
-        this.results = reactive(this.results)
-        this.mapped = reactive(this.mapped)
+        this.results = shallowReactive(this.results)
+        this.mapped = shallowReactive(this.mapped)
     }
 
 }
