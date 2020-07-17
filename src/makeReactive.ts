@@ -10,7 +10,17 @@ export default <T extends Constructor<Model> & typeof Model>(base: T) => class V
 
     constructor(...args: any[]) {
         super(...args)
+        this.$ensureReactivity()
+    }
+
+    $ensureReactivity() {
         this.$attributes.local = reactive(this.$attributes.local)
+    }
+
+    reset() {
+        const result = super.reset()
+        this.$ensureReactivity()
+        return result
     }
 
 }
