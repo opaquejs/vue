@@ -1,12 +1,14 @@
-import { Model, Attributes } from '@opaquejs/opaque'
+import { Model } from '@opaquejs/opaque'
 import { makeReactiveQuery } from '.'
-import { reactive, isReactive, toRefs, toRef } from 'vue'
+import { reactive } from 'vue'
+import makeReactiveAdapter from './makeReactiveAdapter'
 
 type Constructor<T = {}> = new (...args: any[]) => T
 
 export default <T extends Constructor<Model> & typeof Model>(base: T) => class VueReactiveModel extends base {
 
     protected static $query = makeReactiveQuery(base.$query)
+    protected static adapter = makeReactiveAdapter(base.adapter);
 
     constructor(...args: any[]) {
         super(...args)
@@ -15,12 +17,6 @@ export default <T extends Constructor<Model> & typeof Model>(base: T) => class V
 
     $ensureReactivity() {
         this.$attributes.local = reactive(this.$attributes.local)
-    }
-
-    reset() {
-        const result = super.reset()
-        this.$ensureReactivity()
-        return result
     }
 
 }
