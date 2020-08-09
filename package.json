@@ -8,7 +8,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@opaquejs/opaque": "^0.3.18",
+    "@opaquejs/opaque": "^0.4.1",
     "@types/jest": "^25.2.3",
     "jest": "^26.2.2",
     "ts-jest": "^26.1.4",
@@ -16,7 +16,7 @@
     "vue": "^3.0.0-rc.5"
   },
   "peerDependencies": {
-    "@opaquejs/opaque": "^0.3.18",
+    "@opaquejs/opaque": "^0.4.0",
     "vue": "^3.0.0"
   },
   "scripts": {

@@ -1,6 +1,5 @@
-import { reactive, shallowReactive } from 'vue'
-
-type Constructor<T = {}> = new (...args: any[]) => T
+import { shallowReactive } from 'vue'
+import { Constructor } from '@opaquejs/opaque'
 
 export default <T extends Constructor<{ results: any[], mapped: any[] }>>(base: T) => class VueReactiveQuery extends base {
 

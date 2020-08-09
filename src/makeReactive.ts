@@ -1,9 +1,7 @@
-import { Model } from '@opaquejs/opaque'
+import { Model, Constructor } from '@opaquejs/opaque'
 import { makeReactiveQuery } from '.'
 import { reactive } from 'vue'
 import makeReactiveStorage from './makeReactiveStorage'
-
-type Constructor<T = {}> = new (...args: any[]) => T
 
 export default <T extends Constructor<Model> & typeof Model>(base: T) => class VueReactiveModel extends base {
 
