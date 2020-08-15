@@ -1,6 +1,6 @@
 import { makeReactive } from ".."
 import { Model, attribute } from "@opaquejs/opaque"
-import { watch } from 'vue'
+import { watch, isReactive } from 'vue'
 import { sleep } from "../util"
 
 describe('Vue', () => {
