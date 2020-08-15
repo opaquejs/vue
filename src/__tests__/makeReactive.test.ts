@@ -1,8 +1,7 @@
 import { makeReactive } from ".."
 import { Model, attribute } from "@opaquejs/opaque"
 import { watch } from 'vue'
-
-export const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time))
+import { sleep } from "../util"
 
 describe('Vue', () => {
     class Task extends makeReactive(Model) {
@@ -46,5 +45,20 @@ describe('Vue', () => {
 
         expect(values).toEqual([ true, false ])
         stop()
+    })
+
+    test('storage', async () => {
+        const task = await Task.create({ title: 'test', id: 1 })
+        const copy = await Task.find(1)
+
+        let last_title = copy.title
+        watch(() => copy.title, value => last_title = value)
+
+        task.title = 'updated'
+        await task.save()
+
+        sleep(10)
+
+        expect(last_title).toBe('updated')
     })
 })

@@ -1,7 +1,7 @@
 import { makeReactiveQuery } from ".."
 import { MappedQuery } from "@opaquejs/opaque"
 import { watch } from "vue";
-import { sleep } from './makeReactive.test'
+import { sleep } from "../util";
 
 describe('Vue', () => {
     test('Can extend Model', async () => {
