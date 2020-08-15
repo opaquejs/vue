@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, toRaw } from 'vue'
 import { Constructor, Storage } from '@opaquejs/opaque'
 
 export default <T extends Constructor<Storage>>(base: T) => class VueReactive extends base {
@@ -6,6 +6,10 @@ export default <T extends Constructor<Storage>>(base: T) => class VueReactive ex
     constructor(...args: any[]) {
         super(...args)
         this.replace(reactive(this.all()))
+    }
+
+    public all() {
+        return toRaw(super.all())
     }
 
 }
