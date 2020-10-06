@@ -1,16 +1,15 @@
-import { makeReactive } from ".."
-import { Model, attribute } from "@opaquejs/opaque"
+import { OpaqueModel, attribute, runtime } from '@opaquejs/opaque'
 import { watch, isReactive } from 'vue'
 import { sleep } from "../util"
+import { reactive } from '..'
 
 describe('Vue', () => {
-    class Task extends makeReactive(Model) {
+    class Task extends reactive(runtime(OpaqueModel)) {
+        @attribute()
+        public id?: string
+
         @attribute()
         public title: string = 'standard'
-
-        constructor() {
-            super()
-        }
 
         get startsWithT() {
             return this.title.startsWith('T')
@@ -20,7 +19,7 @@ describe('Vue', () => {
         const task = new Task()
 
         let changed = ''
-        // console.log(typeof task.$attributes.local)
+
         const stop = watch(() => task.title, value => changed = value)
         task.title = 'new title'
         await sleep(1)
@@ -36,20 +35,21 @@ describe('Vue', () => {
 
         task.title = 'n'
         await sleep(10)
-        
+
         task.title = 'T'
         await sleep(10)
 
         task.title = 'not'
         await sleep(10)
 
-        expect(values).toEqual([ true, false ])
+        expect(values).toEqual([true, false])
         stop()
     })
 
     test('storage', async () => {
-        const task = await Task.create({ title: 'test', id: 1 })
-        const copy = await Task.find(1)
+        const task = new Task()
+        await task.$setAndSave({ title: 'test', id: '1' })
+        const copy = await Task.query().where('id', '1').first()
 
         let last_title = copy.title
         watch(() => copy.title, value => last_title = value)
